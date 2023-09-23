@@ -49,7 +49,7 @@ public class InputValidator {
         String issuedCommands = inputUtility.getIssuedCommands(inputs);
         String[] commands = issuedCommands.split(",");
         for (String command: commands) {
-            if (IssuedCommand.fromCode(command.toLowerCase().charAt(0)) == null) {
+            if (IssuedCommand.fromCode(command.toUpperCase().charAt(0)) == null) {
                 return false;
             }
         }

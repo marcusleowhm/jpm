@@ -94,6 +94,12 @@ public class UserInterface {
                 continue;
             }
 
+            if (command.equals("move")) {
+
+                //TODO
+                continue;
+            }
+
             if (command.equals("list")) {
                 List<Rover> rovers = roverService.getRovers();
                 if (rovers.isEmpty()) {

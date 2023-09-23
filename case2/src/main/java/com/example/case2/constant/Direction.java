@@ -1,11 +1,8 @@
 package com.example.case2.constant;
 
-import lombok.Getter;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
 public enum Direction {
     NORTH('N'), SOUTH('S'), EAST('E'), WEST('W');
 

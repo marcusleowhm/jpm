@@ -2,7 +2,6 @@ package com.example.case2.model.entity;
 
 import com.example.case2.constant.Direction;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

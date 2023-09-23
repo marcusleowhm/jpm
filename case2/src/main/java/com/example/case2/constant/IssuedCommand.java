@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public enum IssuedCommand {
 
-    FORWARD('f'), BACKWARD('b'), LEFT_TURN('l'), RIGHT_TURN('r');
+    FORWARD('F'), BACKWARD('B'), LEFT_TURN('L'), RIGHT_TURN('R');
 
     private static final Map<Character, IssuedCommand> commandMap;
 

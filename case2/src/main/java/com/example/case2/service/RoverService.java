@@ -5,7 +5,6 @@ import com.example.case2.model.entity.Mars;
 import com.example.case2.model.entity.Rover;
 import com.example.case2.model.request.RoverLaunchRequest;
 import com.example.case2.model.request.RoverMovementRequest;
-import com.example.case2.repository.MarsRepository;
 import com.example.case2.repository.RoverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,7 +86,7 @@ public class RoverService {
         Rover rover = optionalRover.get();
         String[] issuedCommands = request.getIssuedCommands().split(",");
         for (String issuedCommand: issuedCommands) {
-            moveRover(issuedCommand.toLowerCase(), rover);
+            moveRover(issuedCommand.toUpperCase(), rover);
         }
         roverRepository.save(rover);
     }
