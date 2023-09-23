@@ -14,13 +14,18 @@ public class MessagePrinter {
     private static final String LAUNCH_MULTI_MESSAGE = "- Launch multiple rovers onto Mars at once";
     private static final String LAUNCH_MULTI_COMMAND = "launch --multi\n";
 
+    private static final String INVALID_INPUT = "Invalid inputs entered\n";
+
     public void printHelp() {
         System.out.println(HEADER);
         System.out.println(LAUNCH_MESSAGE);
         System.out.println(LAUNCH_COMMAND);
         System.out.println(LAUNCH_MULTI_MESSAGE);
         System.out.println(LAUNCH_MULTI_COMMAND);
+    }
 
+    public void printInvalidInputMessage() {
+        System.out.println(INVALID_INPUT);
     }
 
 

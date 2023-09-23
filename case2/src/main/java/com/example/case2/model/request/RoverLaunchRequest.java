@@ -1,6 +1,5 @@
 package com.example.case2.model.request;
 
-import com.example.case2.constant.Direction;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,9 +8,9 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class RoverCreationRequest {
-
+public class RoverLaunchRequest {
     private Integer xPos;
     private Integer yPos;
     private Character direction;
+    private String issuedCommands;
 }
