@@ -31,8 +31,12 @@ public class Rover {
     @Column(name = "direction")
     private Direction direction;
 
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name= "mars_id")
+    private Mars mars;
+
     @Override
     public String toString() {
-        return String.format("%nid: %s, xPos: %s, yPos: %s, direction: %s%n", id, xPos, yPos, direction);
+        return String.format("%n\tid: %s, xPos: %s, yPos: %s, direction: %s, mars: %s%n", id, xPos, yPos, direction, mars.getId());
     }
 }

@@ -9,6 +9,7 @@ import com.example.case2.utility.MessagePrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,17 +50,25 @@ public class UserInterface {
             if (command.equals("launch")) {
                 //Multi launch
                 if (line.contains("--multi")) {
-
+                    List<String> userInput = new ArrayList<>();
                     while(true) {
-                        int count = 0;
-                        System.out.println("Enter starting position, direction and commands <x,y,direction> <f,r,l,b>");
-                        System.out.print(" > ");
-                        line = sc.nextLine();
-
-                        if (line.equals("commit")) {
-
+                        for (String s : userInput) {
+                            System.out.println(s);
                         }
 
+                        System.out.println("Enter starting position, direction and commands <x,y,direction> <f,r,l,b>");
+                        System.out.println("Enter \"commit\" to finalize and launch the rovers. Enter \"cancel\" to abandon launch.");
+                        System.out.print(" > ");
+                        line = sc.nextLine();
+                        userInput.add(line.trim().replaceAll("\\s{2,}"," "));
+
+                        if (line.equals("commit")) {
+                            break;
+                        }
+
+                        if (line.equals("cancel")) {
+                            break;
+                        }
                     }
 
                 }
@@ -70,13 +79,13 @@ public class UserInterface {
                         Integer yPos = inputUtility.getYPos(inputs);
                         Character direction = inputUtility.getDirection(inputs);
                         String movement = inputUtility.getIssuedCommands(inputs);
-                        RoverLaunchRequest request = RoverLaunchRequest.builder()
+                        RoverLaunchRequest launchRequest = RoverLaunchRequest.builder()
                                 .xPos(xPos)
                                 .yPos(yPos)
                                 .direction(direction)
                                 .issuedCommands(movement)
                                 .build();
-                        String response = roverService.launchRover(request);
+                        String response = roverService.launchRover(launchRequest);
                         System.out.println(response);
                     } else {
                         messagePrinter.printInvalidInputMessage();

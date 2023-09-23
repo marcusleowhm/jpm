@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
 public class MessagePrinter {
 
     private static final String HEADER  = "Usage: <command> <parameters>";
-    private static final String LAUNCH_MESSAGE = "- Launch a rover onto Mars";
+    private static final String LAUNCH_MESSAGE = "- Launches a rover onto Mars";
     private static final String LAUNCH_COMMAND = "launch <start position as x,y,direction> <movement commands comma separated>\n";
-    private static final String LAUNCH_MULTI_MESSAGE = "- Launch multiple rovers onto Mars at once";
+    private static final String LAUNCH_MULTI_MESSAGE = "- Launches multiple rovers onto Mars at once";
     private static final String LAUNCH_MULTI_COMMAND = "launch --multi\n";
+    private static final String LIST_MESSAGE = "- List all the launched rovers and their current positions";
+    private static final String LIST_COMMAND = "list\n";
 
     private static final String INVALID_INPUT = "Invalid inputs entered\n";
 
@@ -22,6 +24,8 @@ public class MessagePrinter {
         System.out.println(LAUNCH_COMMAND);
         System.out.println(LAUNCH_MULTI_MESSAGE);
         System.out.println(LAUNCH_MULTI_COMMAND);
+        System.out.println(LIST_MESSAGE);
+        System.out.println(LIST_COMMAND);
     }
 
     public void printInvalidInputMessage() {

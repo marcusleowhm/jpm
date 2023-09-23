@@ -18,8 +18,7 @@ public class Mars {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rovers")
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "mars")
     private List<Rover> rovers;
 
 }
