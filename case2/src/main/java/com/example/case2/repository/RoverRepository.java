@@ -1,6 +1,6 @@
 package com.example.case2.repository;
 
-import com.example.case2.model.Rover;
+import com.example.case2.model.entity.Rover;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RoverRepository extends JpaRepository<Rover, Long> {
+
 }
