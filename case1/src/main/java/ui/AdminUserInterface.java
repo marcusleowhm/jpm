@@ -5,8 +5,8 @@ import command.SetupCommand;
 import command.ViewCommand;
 import dao.Repository;
 import message.Messages;
+import utility.InputValidator;
 
-import java.io.Console;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;

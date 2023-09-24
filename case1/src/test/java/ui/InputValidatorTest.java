@@ -1,6 +1,7 @@
 package ui;
 
 import org.junit.jupiter.api.Test;
+import utility.InputValidator;
 
 import static org.junit.jupiter.api.Assertions.*;
 

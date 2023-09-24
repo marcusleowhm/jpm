@@ -3,6 +3,7 @@ package ui;
 import command.*;
 import dao.Repository;
 import message.Messages;
+import utility.InputValidator;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ public class UserInterface {
 
             //Trim extra white space between params
             //Split line into respective params
-            String[] inputs = line.replaceAll("\\s{2,}"," ").split(" ");
+            String[] inputs = line.trim().replaceAll("\\s{2,}"," ").split(" ");
 
             String command = inputs[0].toLowerCase();
             if (command.equals("exit")) {
