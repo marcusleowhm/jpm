@@ -40,30 +40,26 @@ public class InputValidator {
         }
 
         //Test whether initial position is found within Direction enum
-        if (Direction.fromCode(startingCoordinates[2].toUpperCase().charAt(0)) == null) {
+        if (Direction.fromCode(startingCoordinates[2].charAt(0)) == null) {
             return false;
         }
 
-        //Check if the commands entered are single character
-        String issuedCommands = inputUtility.getIssuedCommands(inputs);
-        String[] commands = issuedCommands.split(",");
-        for (String cmd: commands) {
+        String[] issuedCommands = inputUtility.getIssuedCommands(inputs).split(",");
+        for (String cmd: issuedCommands) {
+            //Check if the commands entered are single character
             if (cmd.length() != 1) {
                 return false;
             }
-        }
 
-        //Check whether the commands entered are valid
-        for (String command: commands) {
-            if (IssuedCommand.fromCode(command.toUpperCase().charAt(0)) == null) {
+            //Check whether the commands entered are valid
+            if (IssuedCommand.fromCode(cmd.charAt(0)) == null) {
                 return false;
             }
         }
-
         return true;
     }
 
-    public boolean isValidIssueParameters(String[] inputs) {
+    public boolean isIssueCommandParameterValid(String[] inputs) {
         //<issue> <rover_id> <commands>
         if (inputs.length != 3) {
             return false;
@@ -75,18 +71,15 @@ public class InputValidator {
             return false;
         }
 
-        //Check if the commands entered are single character
-        String issuedCommands = inputUtility.getIssuedCommands(inputs);
-        String[] commands = issuedCommands.split(",");
-        for (String cmd: commands) {
+        String[] issuedCommands = inputUtility.getIssuedCommands(inputs).split(",");
+        for (String cmd: issuedCommands) {
+            //Check if the commands entered are single character
             if (cmd.length() != 1) {
                 return false;
             }
-        }
 
-        //Check whether the commands entered are valid
-        for (String command: commands) {
-            if (IssuedCommand.fromCode(command.toUpperCase().charAt(0)) == null) {
+            //Check whether the commands entered are valid
+            if (IssuedCommand.fromCode(cmd.charAt(0)) == null) {
                 return false;
             }
         }

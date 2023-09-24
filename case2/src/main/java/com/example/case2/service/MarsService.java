@@ -3,6 +3,7 @@ package com.example.case2.service;
 import com.example.case2.model.entity.Mars;
 import com.example.case2.model.entity.Rover;
 import com.example.case2.repository.MarsRepository;
+import com.example.case2.utility.MessagePrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ public class MarsService {
     @Autowired
     private MarsRepository marsRepository;
 
+    @Autowired
+    private MessagePrinter messagePrinter;
+
     public Boolean marsExists() {
         List<Mars> mars = marsRepository.findAll();
         return !mars.isEmpty();
@@ -25,9 +29,12 @@ public class MarsService {
 
     @Transactional
     public void createMars() {
+        if (marsExists()) {
+            return;
+        }
         Mars newMars = new Mars();
         marsRepository.save(newMars);
-        System.out.println("------- Let there be Mars --------");
+        messagePrinter.printMarsCreationMessage();
     }
 
     public Mars getMars() {

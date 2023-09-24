@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Builder
 @Data
-public class RoverMovementRequest {
+public class RoverIssueMovementRequest {
     private Long id;
     private String issuedCommands;
 }

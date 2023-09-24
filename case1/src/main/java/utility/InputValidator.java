@@ -1,4 +1,4 @@
-package ui;
+package utility;
 
 import command.SetupCommand;
 import command.ViewCommand;

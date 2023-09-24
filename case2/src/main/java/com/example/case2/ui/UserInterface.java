@@ -1,8 +1,7 @@
 package com.example.case2.ui;
 
+import com.example.case2.controller.RoverController;
 import com.example.case2.model.entity.Rover;
-import com.example.case2.model.request.RoverLaunchRequest;
-import com.example.case2.model.request.RoverMovementRequest;
 import com.example.case2.service.RoverService;
 import com.example.case2.utility.InputUtility;
 import com.example.case2.utility.InputValidator;
@@ -30,13 +29,16 @@ public class UserInterface {
     private InputUtility inputUtility;
 
     @Autowired
+    private RoverController roverController;
+
+    @Autowired
     private MessagePrinter messagePrinter;
 
     public void mainLoop() {
         Scanner sc = new Scanner(System.in);
         while (true) {
             messagePrinter.printMainPrompt();
-            String line = sc.nextLine();
+            String line = sc.nextLine().toLowerCase();
             String[] inputs = line.trim().replaceAll("\\s{2,}"," ").split(" ");
             String command = inputUtility.getCommand(inputs);
 
@@ -57,17 +59,17 @@ public class UserInterface {
                         messagePrinter.printInvalidInputMessage();
                         continue;
                     }
-                    handleSingleLaunch(inputs);
+                    roverController.handleSingleLaunch(inputs);
                 }
                 continue;
             }
 
             if (command.equals("issue")) {
-                if (!inputValidator.isValidIssueParameters(inputs)) {
+                if (!inputValidator.isIssueCommandParameterValid(inputs)) {
                     messagePrinter.printInvalidInputMessage();
                     continue;
                 }
-                handleIssueCommand(inputs);
+                roverController.handleIssueCommand(inputs);
                 continue;
             }
 
@@ -88,29 +90,6 @@ public class UserInterface {
         }
     }
 
-    public void handleIssueCommand(String[] inputs) {
-        Long roverId = inputUtility.getRoverIdFromIssueCommand(inputs);
-        String issuedCommand = inputUtility.getIssuedCommands(inputs);
-        RoverMovementRequest movementRequest = RoverMovementRequest.builder()
-                .id(roverId)
-                .issuedCommands(issuedCommand)
-                .build();
-        roverService.issueCommandToRover(movementRequest);
-    }
-
-    public void handleSingleLaunch(String[] inputs) {
-        Integer xPos = inputUtility.getXPos(inputs);
-        Integer yPos = inputUtility.getYPos(inputs);
-        Character direction = inputUtility.getDirection(inputs);
-        String movement = inputUtility.getIssuedCommands(inputs);
-        RoverLaunchRequest launchRequest = RoverLaunchRequest.builder()
-                .xPos(xPos)
-                .yPos(yPos)
-                .direction(direction)
-                .issuedCommands(movement)
-                .build();
-        System.out.println(roverService.launchRover(launchRequest));
-    }
 
     public void getMultiLaunchInputs() {
         Scanner sc = new Scanner(System.in);
@@ -121,11 +100,11 @@ public class UserInterface {
                 System.out.printf("Rover %s: <%s> <%s>%n", i + 1, inputCommands[1], inputCommands[2]);
             }
             messagePrinter.printMultiLaunchPrompt();
-            String line = sc.nextLine();
+            String line = sc.nextLine().toLowerCase();
 
             if (line.equals("commit")) {
                 for (String input: userInput) {
-                    handleSingleLaunch(input.split(" "));
+                    roverController.handleSingleLaunch(input.split(" "));
                 }
                 break;
             }

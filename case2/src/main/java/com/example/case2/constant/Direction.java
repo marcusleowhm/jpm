@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Direction {
-    NORTH('N'), SOUTH('S'), EAST('E'), WEST('W');
+    NORTH('n'), SOUTH('s'), EAST('e'), WEST('w');
 
     private static final Map<Character, Direction> directionMap;
     static {

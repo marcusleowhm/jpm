@@ -39,7 +39,7 @@ public class InputUtility {
     public Character getDirection(String[] inputs) {
         String startingPosition = getStartingPosition(inputs);
         String[] startCoordinates = startingPosition.split(",");
-        return startCoordinates[2].toUpperCase().charAt(0);
+        return startCoordinates[2].charAt(0);
     }
 
 

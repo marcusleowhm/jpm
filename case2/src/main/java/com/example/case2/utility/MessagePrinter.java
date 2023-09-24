@@ -22,10 +22,14 @@ public class MessagePrinter {
     private static final String LAUNCH_MULTI_MESSAGE = "- Launches multiple rovers onto Mars at once";
     private static final String LAUNCH_MULTI_COMMAND = "launch --multi\n";
     private static final String ISSUE_MESSAGE = "- Issues command to rover to move";
-    private static final String ISSUE_COMMAND = "issue <rover id> <movement commands>\n";
+    private static final String ISSUE_COMMAND = "issue <rover id> <comma separated movement commands>\n";
     private static final String LIST_MESSAGE = "- List all the launched rovers and their current positions";
     private static final String LIST_COMMAND = "list\n";
     private static final String INVALID_INPUT = "Invalid inputs entered\n";
+    private static final String NO_MARS_MESSAGE = "No Mars found, conjuring one...";
+    private static final String MARS_CREATION_MESSAGE = "───────────────────────────────────────────────────────────────────────────\n"
+            + "                           LET THERE BE MARS                           \n" +
+            "───────────────────────────────────────────────────────────────────────────\n";
 
     public void printHelp() {
         System.out.println(HEADER);
@@ -42,6 +46,11 @@ public class MessagePrinter {
     public void printInvalidInputMessage() {
         System.out.println(INVALID_INPUT);
     }
+
+    public void printNoMarsFoundMessage() {
+        System.out.println(NO_MARS_MESSAGE);
+    }
+    public void printMarsCreationMessage() {System.out.print(MARS_CREATION_MESSAGE); }
 
     public void printMainPrompt() {
         System.out.print(MAIN_PROMPT);
