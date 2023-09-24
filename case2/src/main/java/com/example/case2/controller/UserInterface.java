@@ -34,67 +34,34 @@ public class UserInterface {
     public void mainLoop() {
         Scanner sc = new Scanner(System.in);
         while (true) {
-
-            System.out.println("─────────────────────────────────────────────────────────────────────────────────");
-            System.out.println("Type \"help\" to see the list of commands. Type \"exit\" to exit the program.");
-            System.out.print(" > ");
-
+            messagePrinter.printMainPrompt();
             String line = sc.nextLine();
             String[] inputs = line.trim().replaceAll("\\s{2,}"," ").split(" ");
             String command = inputUtility.getCommand(inputs);
 
+            //Exit command
             if (command.equals("exit")) {
                 break;
             }
 
+            //Launch command
             if (command.equals("launch")) {
                 //Multi launch
                 if (line.contains("--multi")) {
-                    List<String> userInput = new ArrayList<>();
-                    while(true) {
-                        for (String s : userInput) {
-                            System.out.println(s);
-                        }
-
-                        System.out.println("Enter starting position, direction and commands <x,y,direction> <f,r,l,b>");
-                        System.out.println("Enter \"commit\" to finalize and launch the rovers. Enter \"cancel\" to abandon launch.");
-                        System.out.print(" > ");
-                        line = sc.nextLine();
-                        userInput.add(line.trim().replaceAll("\\s{2,}"," "));
-
-                        if (line.equals("commit")) {
-                            break;
-                        }
-
-                        if (line.equals("cancel")) {
-                            break;
-                        }
-                    }
-
+                    getMultiLaunchInputs();
                 }
                 //Single launch
                 else {
-                    if (inputValidator.isSingleLaunchParameterValid(inputs)) {
-                        Integer xPos = inputUtility.getXPos(inputs);
-                        Integer yPos = inputUtility.getYPos(inputs);
-                        Character direction = inputUtility.getDirection(inputs);
-                        String movement = inputUtility.getIssuedCommands(inputs);
-                        RoverLaunchRequest launchRequest = RoverLaunchRequest.builder()
-                                .xPos(xPos)
-                                .yPos(yPos)
-                                .direction(direction)
-                                .issuedCommands(movement)
-                                .build();
-                        String response = roverService.launchRover(launchRequest);
-                        System.out.println(response);
-                    } else {
+                    if (!inputValidator.isLaunchParameterValid(inputs)) {
                         messagePrinter.printInvalidInputMessage();
+                        continue;
                     }
+                    handleSingleLaunch(inputs);
                 }
                 continue;
             }
 
-            if (command.equals("move")) {
+            if (command.equals("issue")) {
 
                 //TODO
                 continue;
@@ -109,13 +76,60 @@ public class UserInterface {
                 }
                 continue;
             }
-
             if (command.equals("help")) {
                 messagePrinter.printHelp();
                 continue;
             }
-
             messagePrinter.printInvalidInputMessage();
+        }
+    }
+
+    public void handleSingleLaunch(String[] inputs) {
+        Integer xPos = inputUtility.getXPos(inputs);
+        Integer yPos = inputUtility.getYPos(inputs);
+        Character direction = inputUtility.getDirection(inputs);
+        String movement = inputUtility.getIssuedCommands(inputs);
+        RoverLaunchRequest launchRequest = RoverLaunchRequest.builder()
+                .xPos(xPos)
+                .yPos(yPos)
+                .direction(direction)
+                .issuedCommands(movement)
+                .build();
+        System.out.println(roverService.launchRover(launchRequest));
+    }
+
+    public void getMultiLaunchInputs() {
+        Scanner sc = new Scanner(System.in);
+        List<String> userInput = new ArrayList<>();
+        while(true) {
+            for (int i = 0; i < userInput.size(); i++) {
+                String[] inputCommands = userInput.get(i).split(" ");
+                System.out.printf("Rover %s: <%s> <%s>%n", i + 1, inputCommands[1], inputCommands[2]);
+            }
+            messagePrinter.printMultiLaunchPrompt();
+            String line = sc.nextLine();
+
+            if (line.equals("commit")) {
+                for (String input: userInput) {
+                    handleSingleLaunch(input.split(" "));
+                }
+                break;
+            }
+
+            if (line.equals("cancel")) {
+                break;
+            }
+
+            //Modify line and add a parameter to remain compatible with validity checker
+            line = "launch " + line;
+
+            //check each user input for validity before collecting it in ArrayList
+            String[] inputs = line.split(" ");
+            if (!inputValidator.isLaunchParameterValid(inputs)) {
+                messagePrinter.printInvalidInputMessage();
+                continue;
+            }
+            userInput.add(line.trim().replaceAll("\\s{2,}"," "));
         }
     }
 }

@@ -28,5 +28,4 @@ public enum IssuedCommand {
         return commandMap.get(code);
     }
 
-
 }

@@ -14,12 +14,11 @@ public class InputValidator {
     @Autowired
     private InputUtility inputUtility;
 
-    public boolean isSingleLaunchParameterValid(String[] inputs) {
+    public boolean isLaunchParameterValid(String[] inputs) {
         //<launch> <starting pos, direction> <issued commands>
         if (inputs.length != 3) {
             return false;
         }
-
         //starting position should be x,y,direction
         String startingPosition = inputUtility.getStartingPosition(inputs);
         String[] startingCoordinates = startingPosition.split(",");
@@ -45,19 +44,22 @@ public class InputValidator {
             return false;
         }
 
-        //Check whether the directions entered is valid
+        //Check if the commands entered are single character
         String issuedCommands = inputUtility.getIssuedCommands(inputs);
         String[] commands = issuedCommands.split(",");
+        for (String cmd: commands) {
+            if (cmd.length() != 1) {
+                return false;
+            }
+        }
+
+        //Check whether the directions entered is valid
         for (String command: commands) {
             if (IssuedCommand.fromCode(command.toUpperCase().charAt(0)) == null) {
                 return false;
             }
         }
 
-        return true;
-    }
-
-    public boolean isMultiLaunchParameterValid(String[] inputs) {
         return true;
     }
 

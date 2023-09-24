@@ -8,6 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class MessagePrinter {
 
+
+    private static final String MAIN_PROMPT = "─────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n" +
+            "Type \"help\" to see the list of commands. Type \"exit\" to exit the program.\n" +
+            " > ";
+    private static final String MULTI_LAUNCH_PROMPT = "─────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n" +
+            "Enter starting position, comma separated direction and comma separated commands <x,y,direction> <f,r,l,b>\n" +
+            "Enter \"commit\" to finalize and launch the rovers. Enter \"cancel\" to abandon mission.\n" +
+            " > ";
     private static final String HEADER  = "Usage: <command> <parameters>";
     private static final String LAUNCH_MESSAGE = "- Launches a rover onto Mars";
     private static final String LAUNCH_COMMAND = "launch <start position as x,y,direction> <movement commands comma separated>\n";
@@ -35,5 +43,12 @@ public class MessagePrinter {
         System.out.println(INVALID_INPUT);
     }
 
+    public void printMainPrompt() {
+        System.out.print(MAIN_PROMPT);
+    }
+
+    public void printMultiLaunchPrompt() {
+        System.out.print(MULTI_LAUNCH_PROMPT);
+    }
 
 }

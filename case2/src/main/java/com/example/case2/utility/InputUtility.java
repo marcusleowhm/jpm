@@ -38,4 +38,5 @@ public class InputUtility {
         return startCoordinates[2].toUpperCase().charAt(0);
     }
 
+
 }

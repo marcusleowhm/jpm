@@ -1,6 +1,7 @@
 package com.example.case2.service;
 
 import com.example.case2.constant.Direction;
+import com.example.case2.constant.IssuedCommand;
 import com.example.case2.model.entity.Mars;
 import com.example.case2.model.entity.Rover;
 import com.example.case2.model.request.RoverLaunchRequest;
@@ -77,6 +78,7 @@ public class RoverService {
         return roverRepository.findAll();
     }
 
+    @Transactional
     public void issueCommandToRover(RoverMovementRequest request) {
         Optional<Rover> optionalRover = roverRepository.findById(request.getId());
         if (!optionalRover.isPresent()) {
@@ -85,6 +87,7 @@ public class RoverService {
 
         Rover rover = optionalRover.get();
         String[] issuedCommands = request.getIssuedCommands().split(",");
+
         for (String issuedCommand: issuedCommands) {
             moveRover(issuedCommand.toUpperCase(), rover);
         }
@@ -92,19 +95,19 @@ public class RoverService {
     }
 
     private void moveRover(String issuedCommand, Rover rover) {
-        if (issuedCommand.equals("f")) {
+        if (issuedCommand.equals("F")) {
             moveForward(rover);
             return;
         }
-        if (issuedCommand.equals("b")) {
+        if (issuedCommand.equals("B")) {
             moveBackward(rover);
             return;
         }
-        if (issuedCommand.equals("l")) {
+        if (issuedCommand.equals("L")) {
             rotateLeft(rover);
             return;
         }
-        if (issuedCommand.equals("r")) {
+        if (issuedCommand.equals("R")) {
             rotateRight(rover);
         }
     }
@@ -158,6 +161,7 @@ public class RoverService {
         }
         rover.setXPos(nextXPos);
     }
+
     private void moveNegativeY(Rover rover) {
         Integer nextYPos = rover.getYPos() - 1;
         if (marsService.coordinatesAlreadyHasRover(rover.getXPos(), nextYPos)) {
@@ -165,6 +169,7 @@ public class RoverService {
         }
         rover.setYPos(nextYPos);
     }
+
     private void movePositiveY(Rover rover) {
         Integer nextYPos = rover.getYPos() + 1;
         if (marsService.coordinatesAlreadyHasRover(rover.getXPos(), nextYPos)) {
