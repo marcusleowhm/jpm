@@ -1,7 +1,8 @@
-package com.example.case2.controller;
+package com.example.case2.ui;
 
 import com.example.case2.model.entity.Rover;
 import com.example.case2.model.request.RoverLaunchRequest;
+import com.example.case2.model.request.RoverMovementRequest;
 import com.example.case2.service.RoverService;
 import com.example.case2.utility.InputUtility;
 import com.example.case2.utility.InputValidator;
@@ -62,7 +63,7 @@ public class UserInterface {
             }
 
             if (command.equals("issue")) {
-                if (!inputValidator.isValidMovementParameters(inputs)) {
+                if (!inputValidator.isValidIssueParameters(inputs)) {
                     messagePrinter.printInvalidInputMessage();
                     continue;
                 }
@@ -88,7 +89,13 @@ public class UserInterface {
     }
 
     public void handleIssueCommand(String[] inputs) {
-        //TODO
+        Long roverId = inputUtility.getRoverIdFromIssueCommand(inputs);
+        String issuedCommand = inputUtility.getIssuedCommands(inputs);
+        RoverMovementRequest movementRequest = RoverMovementRequest.builder()
+                .id(roverId)
+                .issuedCommands(issuedCommand)
+                .build();
+        roverService.issueCommandToRover(movementRequest);
     }
 
     public void handleSingleLaunch(String[] inputs) {

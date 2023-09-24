@@ -1,6 +1,6 @@
 package com.example.case2;
 
-import com.example.case2.controller.UserInterface;
+import com.example.case2.ui.UserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

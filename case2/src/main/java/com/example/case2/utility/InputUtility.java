@@ -16,6 +16,10 @@ public class InputUtility {
         return inputs[1];
     }
 
+    public Long getRoverIdFromIssueCommand(String[] inputs) {
+        return Long.parseLong(inputs[1]);
+    }
+
     public String getIssuedCommands(String[] inputs) {
         return inputs[2];
     }

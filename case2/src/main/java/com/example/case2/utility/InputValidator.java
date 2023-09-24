@@ -53,7 +53,7 @@ public class InputValidator {
             }
         }
 
-        //Check whether the directions entered is valid
+        //Check whether the commands entered are valid
         for (String command: commands) {
             if (IssuedCommand.fromCode(command.toUpperCase().charAt(0)) == null) {
                 return false;
@@ -63,13 +63,33 @@ public class InputValidator {
         return true;
     }
 
-    public boolean isValidMovementParameters(String[] inputs) {
+    public boolean isValidIssueParameters(String[] inputs) {
         //<issue> <rover_id> <commands>
         if (inputs.length != 3) {
             return false;
         }
 
-        //TODO
+        try {
+            Integer.parseInt(inputs[1]);
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+
+        //Check if the commands entered are single character
+        String issuedCommands = inputUtility.getIssuedCommands(inputs);
+        String[] commands = issuedCommands.split(",");
+        for (String cmd: commands) {
+            if (cmd.length() != 1) {
+                return false;
+            }
+        }
+
+        //Check whether the commands entered are valid
+        for (String command: commands) {
+            if (IssuedCommand.fromCode(command.toUpperCase().charAt(0)) == null) {
+                return false;
+            }
+        }
 
         return true;
     }
