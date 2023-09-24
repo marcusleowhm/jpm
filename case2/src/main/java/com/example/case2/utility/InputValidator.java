@@ -63,4 +63,15 @@ public class InputValidator {
         return true;
     }
 
+    public boolean isValidMovementParameters(String[] inputs) {
+        //<issue> <rover_id> <commands>
+        if (inputs.length != 3) {
+            return false;
+        }
+
+        //TODO
+
+        return true;
+    }
+
 }

@@ -62,8 +62,11 @@ public class UserInterface {
             }
 
             if (command.equals("issue")) {
-
-                //TODO
+                if (!inputValidator.isValidMovementParameters(inputs)) {
+                    messagePrinter.printInvalidInputMessage();
+                    continue;
+                }
+                handleIssueCommand(inputs);
                 continue;
             }
 
@@ -82,6 +85,10 @@ public class UserInterface {
             }
             messagePrinter.printInvalidInputMessage();
         }
+    }
+
+    public void handleIssueCommand(String[] inputs) {
+        //TODO
     }
 
     public void handleSingleLaunch(String[] inputs) {
