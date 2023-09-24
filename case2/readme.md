@@ -13,7 +13,7 @@
 - `list` - shows a list of rovers that are already launched on the planet
 - `launch <x,y,d> <f,b,l,r>` launch a rover at coordinate (x, y), facing direction `d` (N, S, E, W) and commanding it to move according to the directions `(f, b, l, or r)`
 - `launch --multi` allows user to launch multiple rovers with a single command
-- `issue <rover id> <f, b, l, r>` issue a string of command to a rover that is already launched to carry movement commands. Use the `list` command to list out the rovers and see their ID.
+- `issue <rover id> <f, b, l, r>` issue a string of command to a rover that is already launched to carry out movement commands. Use the `list` command to list out the rovers and see their ID.
 
 ### Program Explanation
 1. The entry point of the program is RoverApplication. It implements CommandLineRunner as a SpringApplication, allowing us to inject a console based user interface using the Scanner class
